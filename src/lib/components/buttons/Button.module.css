@@ -1,0 +1,15 @@
+.primary {
+    width: 150px;
+    height: 40px;
+    font-size: 20px;
+    color: white;
+    background-color: #ABCFFF;
+}
+
+.secondary {
+    width: 150px;
+    height: 40px;
+    font-size: 20px;
+    color: black;
+    background-color: #FFFAAA;
+}

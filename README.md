@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# Libreria de componentes de React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Requisitos
 
-## Available Scripts
+1. Tener una cuenta en NPM. Sino tienes una podes crearla [aqui.](https://docs.npmjs.com/creating-a-new-npm-user-account])
+2. Tener instalado npm en tu equipo.
+3. Git.
+4. Visual Studio Code.
+5. Una terminal.
+6. Acceso a internet.
 
-In the project directory, you can run:
+## Dependencias
 
-### `npm start`
+- Babel para poder transpilar el codigo
+  
+    ```text
+    npm i --save-dev @babel/cli @babel/core @babel/preset-env
+    npm i @babel/polyfill
+    ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Estructura del proyecto
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Dentro de `src` debemos crear la carpeta `lib`. Dentro de `lib` creamos la carpeta `components` la cual contendra los componentes que exportaremos.
+2. Cada componente tendra su propia carpeta con sus estilos correspondientes, en este ejemplo estamos utilizando `CSS Modules`.
+3. En la raiz de la carpeta `lib` creamos un archivo llamado `index.js` el cual sera nuestro punto de entrada a los componente, basicamente vamos a importar los componetes desde la carpeta `components` y los vamos a exportar.
+4. En la raiz del proyecto debemos agregar el archivo `babel.config.json` con la siguiente configuracion basica.
 
-### `npm test`
+```text
+{
+    "presets": [
+        [
+            "@babel/env",
+            {
+                "targets": {
+                    "edge": "17",
+                    "firefox": "60",
+                    "chrome": "67",
+                    "safari": "11.1"
+                },
+                "useBuiltIns": "usage",
+                "corejs": "3.6.5"
+            }
+        ],
+        "@babel/preset-react"
+    ]
+}
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## package.json
 
-### `npm run build`
+```text
+{
+  "name": "@nadirss14/component-library",
+  "description": "Example of react component library",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build:npm": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files"
+  }
+}
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. `description`: descripcion corta de los que es el paquete. [Package name guidelines](https://docs.npmjs.com/package-name-guidelines)
+3. `version`: controla las versiones del paquete. [Semantic versioning](https://docs.npmjs.com/about-semantic-versioning)
+4. `main`: Especifica el punto de estrada a la aplicacion.
+6. `files`: Listado de archivos que debemos incluir en el paquete.
+7. `scripts`: Listado de scripts que ejecutaremos sobre el proyecto.
+    - El script `build:npm` se encarga que de hacer el transpilado de los archivos de la carpeta `lib` y generar los nuevos archivos copilados dentro de la carpeta `dist` para ser publicados en NPM.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Publish NPM
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+ 1. Login with npm
 
-### `npm run eject`
+```text
+npm login
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Por defecto `npm` viene configurado para publicar unicamente paquetes privados, para cambiar esto ejecutamos el siguiente comando en la terminal.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```text
+npm config set access public
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+ 3. Publicar el paquete.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```text
+npm publish
+```
